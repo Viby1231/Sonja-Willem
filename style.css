@@ -1,0 +1,981 @@
+/* =========================================
+   VARIABLES
+========================================= */
+
+:root {
+    --burnt-orange: #b85c38;
+    --burnt-orange-dark: #914326;
+    --cream: #fbf7f1;
+    --cream-dark: #f1e7da;
+    --pink: #d99a9a;
+    --pink-light: #f4dddd;
+    --brown: #4a332c;
+    --text: #51443e;
+    --white: #ffffff;
+
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Montserrat", Arial, sans-serif;
+
+    --container: 1150px;
+    --radius: 4px;
+
+    --shadow:
+        0 15px 40px rgba(70, 40, 25, 0.08);
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.7;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+.container {
+    width: min(
+        calc(100% - 40px),
+        var(--container)
+    );
+
+    margin-inline: auto;
+}
+
+.narrow {
+    max-width: 750px;
+}
+
+.section {
+    padding: 110px 0;
+}
+
+.section-heading {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 65px;
+}
+
+.section-label {
+    color: var(--burnt-orange);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+h2 {
+    color: var(--brown);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
+.ornament {
+    color: var(--pink);
+    font-size: 2rem;
+    margin: 15px 0;
+}
+
+.section-description {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 52px;
+    padding: 0 30px;
+
+    border: 1px solid transparent;
+    border-radius: 2px;
+
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+.button-primary {
+    color: var(--white);
+    background: var(--burnt-orange);
+}
+
+.button-primary:hover {
+    background: var(--burnt-orange-dark);
+}
+
+.button-outline {
+    color: var(--burnt-orange);
+    border-color: var(--burnt-orange);
+    background: transparent;
+}
+
+.button-outline:hover {
+    color: var(--white);
+    background: var(--burnt-orange);
+}
+
+.button-full {
+    width: 100%;
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    z-index: 1000;
+
+    background: rgba(251, 247, 241, 0.94);
+
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid rgba(74, 51, 44, 0.08);
+}
+
+.nav-container {
+    width: min(
+        calc(100% - 40px),
+        var(--container)
+    );
+
+    min-height: 75px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    color: var(--brown);
+
+    font-family: var(--serif);
+    font-size: 1.7rem;
+}
+
+.logo span {
+    color: var(--burnt-orange);
+    font-style: italic;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    font-size: 0.7rem;
+    font-weight: 500;
+
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.nav-links a {
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--burnt-orange);
+}
+
+.nav-rsvp {
+    color: var(--white) !important;
+    background: var(--burnt-orange);
+
+    padding: 10px 18px;
+}
+
+.menu-toggle {
+    display: none;
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+
+    width: 24px;
+    height: 2px;
+
+    margin: 5px auto;
+
+    background: var(--brown);
+
+    transition: 0.3s;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero {
+    min-height: 100vh;
+
+    position: relative;
+
+    display: grid;
+    place-items: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            rgba(60, 35, 25, 0.35),
+            rgba(60, 35, 25, 0.45)
+        ),
+        url("Images/hero.jpg")
+        center / cover no-repeat;
+
+    color: var(--white);
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            transparent 20%,
+            rgba(40, 20, 10, 0.25)
+        );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    width: min(
+        calc(100% - 40px),
+        900px
+    );
+}
+
+.eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: clamp(
+        4rem,
+        11vw,
+        9rem
+    );
+
+    font-weight: 400;
+
+    text-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.hero h1 span {
+    color: var(--pink);
+    font-style: italic;
+}
+
+.hero-divider {
+    width: 80px;
+    height: 1px;
+
+    background: var(--white);
+
+    margin: 30px auto;
+}
+
+.hero-date {
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    margin-bottom: 35px;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 2;
+
+    text-align: center;
+
+    opacity: 0.8;
+}
+
+.scroll-indicator span {
+    display: block;
+
+    width: 1px;
+    height: 35px;
+
+    margin: 0 auto 5px;
+
+    background: white;
+}
+
+.scroll-indicator p {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+
+/* =========================================
+   INTRO
+========================================= */
+
+.intro {
+    position: relative;
+
+    text-align: center;
+
+    overflow: hidden;
+}
+
+.intro-text {
+    font-family: var(--serif);
+
+    font-size: clamp(
+        1.35rem,
+        2.5vw,
+        1.7rem
+    );
+
+    line-height: 1.7;
+}
+
+.flower-decoration {
+    position: absolute;
+
+    color: var(--pink);
+
+    font-size: 8rem;
+
+    opacity: 0.18;
+}
+
+.flower-left {
+    left: -40px;
+    top: 40%;
+}
+
+.flower-right {
+    right: -40px;
+    bottom: 20%;
+}
+
+
+/* =========================================
+   WEDDING
+========================================= */
+
+.wedding {
+    background: var(--cream-dark);
+}
+
+.details-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.detail-card {
+    padding: 45px 25px;
+
+    text-align: center;
+
+    background: var(--cream);
+
+    box-shadow: var(--shadow);
+}
+
+.detail-icon {
+    color: var(--burnt-orange);
+
+    font-family: var(--serif);
+    font-size: 2.5rem;
+
+    margin-bottom: 15px;
+}
+
+.detail-label {
+    color: var(--burnt-orange);
+
+    font-size: 0.65rem;
+    font-weight: 600;
+
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.detail-card h3 {
+    margin-top: 10px;
+
+    font-size: 1.6rem;
+}
+
+.venue-message {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 40px;
+
+    margin-top: 30px;
+    padding: 45px;
+
+    background: var(--brown);
+    color: var(--white);
+}
+
+.venue-message h3 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.venue-message .section-label {
+    color: var(--pink);
+}
+
+
+/* =========================================
+   INFORMATION
+========================================= */
+
+.info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 25px;
+}
+
+.info-card {
+    position: relative;
+
+    padding: 45px;
+
+    border: 1px solid rgba(74, 51, 44, 0.12);
+
+    background: var(--white);
+}
+
+.info-number {
+    color: var(--pink);
+
+    font-size: 0.7rem;
+    font-weight: 600;
+
+    letter-spacing: 0.15em;
+
+    margin-bottom: 15px;
+}
+
+.info-card h3 {
+    color: var(--brown);
+
+    font-size: 2rem;
+
+    margin-bottom: 10px;
+}
+
+
+/* =========================================
+   ACCOMMODATION
+========================================= */
+
+.accommodation {
+    background: var(--cream-dark);
+}
+
+.guesthouse-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.guesthouse {
+    padding: 28px;
+
+    background: var(--cream);
+
+    border-left: 3px solid var(--pink);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.guesthouse:hover {
+    transform: translateY(-4px);
+
+    box-shadow: var(--shadow);
+}
+
+.guesthouse h3 {
+    font-size: 1.45rem;
+}
+
+.guesthouse p {
+    margin-top: 8px;
+
+    font-size: 0.85rem;
+}
+
+
+/* =========================================
+   RSVP
+========================================= */
+
+.rsvp {
+    background:
+        linear-gradient(
+            rgba(74, 51, 44, 0.95),
+            rgba(74, 51, 44, 0.95)
+        );
+}
+
+.rsvp-wrapper {
+    max-width: 850px;
+
+    margin: auto;
+
+    padding: 70px;
+
+    background: var(--cream);
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.2);
+}
+
+.rsvp-header {
+    text-align: center;
+
+    margin-bottom: 45px;
+}
+
+.rsvp-header h2 {
+    color: var(--brown);
+}
+
+.rsvp-form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 22px;
+}
+
+.form-row {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 0.7rem;
+
+    font-weight: 600;
+
+    letter-spacing: 0.1em;
+
+    text-transform: uppercase;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+
+    padding: 15px;
+
+    border: 1px solid rgba(74, 51, 44, 0.18);
+
+    border-radius: 0;
+
+    background: var(--white);
+
+    color: var(--text);
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--burnt-orange);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(184, 92, 56, 0.08);
+}
+
+.radio-group {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+.radio-option {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 15px;
+
+    border: 1px solid
+        rgba(74, 51, 44, 0.15);
+
+    cursor: pointer;
+}
+
+.radio-option input {
+    width: auto;
+}
+
+.form-message {
+    text-align: center;
+
+    min-height: 25px;
+
+    font-size: 0.9rem;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer {
+    padding: 70px 0;
+
+    text-align: center;
+
+    background: var(--brown);
+
+    color: var(--white);
+}
+
+.footer h2 {
+    color: var(--white);
+
+    font-size: 3rem;
+}
+
+.footer p {
+    max-width: 500px;
+
+    margin: 15px auto;
+}
+
+.footer-ornament {
+    color: var(--pink);
+
+    font-size: 2rem;
+
+    margin: 20px 0;
+}
+
+.footer small {
+    opacity: 0.65;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    .section {
+        padding: 85px 0;
+    }
+
+    .details-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .detail-card:last-child {
+        grid-column:
+            1 / -1;
+    }
+
+    .guesthouse-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .rsvp-wrapper {
+        padding: 50px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE NAVIGATION
+========================================= */
+
+@media (max-width: 700px) {
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+
+        top: 75px;
+        left: 0;
+
+        width: 100%;
+
+        padding: 20px;
+
+        display: none;
+        flex-direction: column;
+
+        background: var(--cream);
+
+        border-bottom:
+            1px solid rgba(74, 51, 44, 0.1);
+
+        gap: 0;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        width: 100%;
+
+        padding: 15px;
+
+        text-align: center;
+    }
+
+    .nav-rsvp {
+        margin-top: 5px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .container {
+        width:
+            min(
+                calc(100% - 30px),
+                var(--container)
+            );
+    }
+
+    .section {
+        padding: 70px 0;
+    }
+
+    .hero h1 {
+        font-size:
+            clamp(
+                3.5rem,
+                18vw,
+                5.5rem
+            );
+    }
+
+    .hero-date {
+        font-size: 0.7rem;
+    }
+
+    .details-grid,
+    .info-grid,
+    .guesthouse-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-card:last-child {
+        grid-column: auto;
+    }
+
+    .venue-message {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 35px 25px;
+    }
+
+    .info-card {
+        padding: 35px 25px;
+    }
+
+    .rsvp-wrapper {
+        padding: 40px 22px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .radio-group {
+        grid-template-columns: 1fr;
+    }
+
+    .flower-decoration {
+        display: none;
+    }
+
+    .footer h2 {
+        font-size: 2.5rem;
+    }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 380px) {
+
+    .logo {
+        font-size: 1.4rem;
+    }
+
+    .hero h1 {
+        font-size: 3.2rem;
+    }
+
+    .button {
+        width: 100%;
+    }
+
+}
+
+.guesthouse {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.guesthouse p {
+    color: var(--burnt-orange);
+}
