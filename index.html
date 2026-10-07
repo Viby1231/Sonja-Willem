@@ -468,7 +468,13 @@
                     </div>
 
 
-                    <form id="rsvpForm" class="rsvp-form">
+                    <form
+                        id="rsvpForm"
+                        class="rsvp-form"
+                        action="https://script.google.com/macros/s/AKfycbwfLky_WHWkRAgSlK0ylaL66B35qKM5Xm3kBAQX1MLZqHCQyaY46mvdOC0phas7fx-Ucw/exec"
+                        method="POST"
+                        target="rsvpFrame"
+                    >
 
                         <div class="form-row">
 
@@ -661,6 +667,12 @@
                         ></p>
 
                     </form>
+
+                    <iframe
+                        name="rsvpFrame"
+                        id="rsvpFrame"
+                        style="display:none;"
+                    ></iframe>
 
                 </div>
 

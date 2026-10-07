@@ -11,6 +11,7 @@ if (menuToggle && navLinks) {
         navLinks.classList.toggle("active");
     });
 
+
     document.querySelectorAll(".nav-links a").forEach(link => {
 
         link.addEventListener("click", () => {
@@ -28,73 +29,54 @@ if (menuToggle && navLinks) {
 
 const rsvpForm = document.getElementById("rsvpForm");
 const formMessage = document.getElementById("formMessage");
-
-const GOOGLE_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbwfLky_WHWkRAgSlK0ylaL66B35qKM5Xm3kBAQX1MLZqHCQyaY46mvdOC0phas7fx-Ucw/exec";
+const rsvpFrame = document.getElementById("rsvpFrame");
 
 
 if (rsvpForm) {
 
-    rsvpForm.addEventListener("submit", (event) => {
-
-        event.preventDefault();
+    rsvpForm.addEventListener("submit", () => {
 
         const submitButton =
             rsvpForm.querySelector("button[type='submit']");
 
+
+        /* -----------------------------------------
+           SHOW SENDING
+        ----------------------------------------- */
+
         if (submitButton) {
+
             submitButton.disabled = true;
             submitButton.textContent = "Stuur...";
+
         }
+
 
         if (formMessage) {
-            formMessage.textContent = "Jou RSVP word gestuur...";
-            formMessage.style.color = "#b85c38";
+
+            formMessage.textContent =
+                "Jou RSVP word gestuur...";
+
+            formMessage.style.color =
+                "#b85c38";
+
         }
 
 
-        /* Create a hidden iframe */
-        const iframe = document.createElement("iframe");
+        /*
+            IMPORTANT:
 
-        iframe.name = "rsvpFrame";
-        iframe.style.display = "none";
+            We DO NOT use event.preventDefault().
 
-        document.body.appendChild(iframe);
-
-
-        /* Create a temporary form */
-        const form = document.createElement("form");
-
-        form.method = "POST";
-        form.action = GOOGLE_SCRIPT_URL;
-        form.target = "rsvpFrame";
-        form.style.display = "none";
+            The browser submits the form directly
+            to Google Apps Script.
+        */
 
 
-        /* Copy all RSVP fields */
-        const formData = new FormData(rsvpForm);
+        /* -----------------------------------------
+           WAIT FOR GOOGLE APPS SCRIPT
+        ----------------------------------------- */
 
-        formData.forEach((value, key) => {
-
-            const input = document.createElement("input");
-
-            input.type = "hidden";
-            input.name = key;
-            input.value = value;
-
-            form.appendChild(input);
-
-        });
-
-
-        document.body.appendChild(form);
-
-
-        /* Submit to Google Apps Script */
-        form.submit();
-
-
-        /* Give Google Apps Script time to process */
         setTimeout(() => {
 
             if (formMessage) {
@@ -107,7 +89,9 @@ if (rsvpForm) {
 
             }
 
+
             rsvpForm.reset();
+
 
             if (submitButton) {
 
@@ -117,9 +101,6 @@ if (rsvpForm) {
                     "Stuur RSVP";
 
             }
-
-            form.remove();
-            iframe.remove();
 
         }, 2000);
 
