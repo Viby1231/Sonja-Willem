@@ -36,7 +36,7 @@ const formMessage = document.getElementById("formMessage");
 */
 
 const GOOGLE_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbz84HYcLdojN57Gu0XWYjhhK1WRN20HfdQBVDSJxBev-G1L5SOnk3BJiTQfV6ddt34orw/exec";
+    "https://script.google.com/macros/s/AKfycbwfLky_WHWkRAgSlK0ylaL66B35qKM5Xm3kBAQX1MLZqHCQyaY46mvdOC0phas7fx-Ucw/exec";
 
 
 if (rsvpForm) {
