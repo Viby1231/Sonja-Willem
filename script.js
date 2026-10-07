@@ -1,10 +1,4 @@
 /* =========================================
-   WILLEM & SONJA WEDDING WEBSITE
-   MAIN JAVASCRIPT
-========================================= */
-
-
-/* =========================================
    MOBILE MENU
 ========================================= */
 
@@ -12,15 +6,20 @@ const menuToggle = document.querySelector(".menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 
 if (menuToggle && navLinks) {
+
     menuToggle.addEventListener("click", () => {
         navLinks.classList.toggle("active");
     });
 
+
     document.querySelectorAll(".nav-links a").forEach(link => {
+
         link.addEventListener("click", () => {
             navLinks.classList.remove("active");
         });
+
     });
+
 }
 
 
@@ -33,18 +32,11 @@ const formMessage = document.getElementById("formMessage");
 
 
 /*
-    IMPORTANT:
-    Replace this URL with the NEW /exec URL
-    from your Google Apps Script Web App.
-
-    Example:
-
-    const GOOGLE_SCRIPT_URL =
-        "https://script.google.com/macros/s/XXXXXXXXXXXX/exec";
+    PUT YOUR GOOGLE APPS SCRIPT /exec URL HERE
 */
 
 const GOOGLE_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbzjRdG1mTVYdaamf41huSEWIQ7o0VItfNf1NIjQ3gU8ccFbQffqVUG8b_OEW0w0dSUL3A/exec";
+    "https://script.google.com/macros/s/AKfycbz84HYcLdojN57Gu0XWYjhhK1WRN20HfdQBVDSJxBev-G1L5SOnk3BJiTQfV6ddt34orw/exec";
 
 
 if (rsvpForm) {
@@ -54,29 +46,30 @@ if (rsvpForm) {
         event.preventDefault();
 
 
-        /* -----------------------------------------
-           GET SUBMIT BUTTON
-        ----------------------------------------- */
-
         const submitButton =
             rsvpForm.querySelector("button[type='submit']");
 
 
         /* -----------------------------------------
-           SHOW SENDING MESSAGE
+           SHOW SENDING
         ----------------------------------------- */
 
         if (submitButton) {
+
             submitButton.disabled = true;
             submitButton.textContent = "Stuur...";
+
         }
 
+
         if (formMessage) {
+
             formMessage.textContent =
                 "Jou RSVP word gestuur...";
 
             formMessage.style.color =
                 "#b85c38";
+
         }
 
 
@@ -86,7 +79,8 @@ if (rsvpForm) {
                COLLECT FORM DATA
             ----------------------------------------- */
 
-            const formData = new FormData(rsvpForm);
+            const formData =
+                new FormData(rsvpForm);
 
 
             /* -----------------------------------------
@@ -94,14 +88,18 @@ if (rsvpForm) {
             ----------------------------------------- */
 
             await fetch(GOOGLE_SCRIPT_URL, {
+
                 method: "POST",
+
                 body: formData,
+
                 mode: "no-cors"
+
             });
 
 
             /* -----------------------------------------
-               SUCCESS MESSAGE
+               SUCCESS
             ----------------------------------------- */
 
             if (formMessage) {
@@ -111,6 +109,7 @@ if (rsvpForm) {
 
                 formMessage.style.color =
                     "#b85c38";
+
             }
 
 
@@ -123,12 +122,8 @@ if (rsvpForm) {
 
         } catch (error) {
 
-            /* -----------------------------------------
-               ERROR
-            ----------------------------------------- */
-
             console.error(
-                "RSVP submission error:",
+                "RSVP error:",
                 error
             );
 
@@ -140,13 +135,14 @@ if (rsvpForm) {
 
                 formMessage.style.color =
                     "#b85c38";
+
             }
 
         }
 
 
         /* -----------------------------------------
-           ENABLE BUTTON AGAIN
+           ENABLE BUTTON
         ----------------------------------------- */
 
         if (submitButton) {
@@ -155,6 +151,7 @@ if (rsvpForm) {
 
             submitButton.textContent =
                 "Stuur RSVP";
+
         }
 
     });
