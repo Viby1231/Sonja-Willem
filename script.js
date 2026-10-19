@@ -107,3 +107,43 @@ if (rsvpForm) {
     });
 
 }
+
+
+/* =========================================
+   MOBILE HERO SLIDESHOW
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+    const gallery = document.querySelector(".hero-gallery");
+
+    if (!gallery) return;
+
+    const photos = Array.from(
+        gallery.querySelectorAll(".hero-photo")
+    );
+
+    if (photos.length < 2) return;
+
+    let currentIndex = 0;
+    let slideshowTimer;
+
+    function showNextPhoto() {
+        photos[currentIndex].classList.remove("active");
+
+        currentIndex = (currentIndex + 1) % photos.length;
+
+        photos[currentIndex].classList.add("active");
+    }
+
+    function startSlideshow() {
+        clearInterval(slideshowTimer);
+
+        if (window.innerWidth <= 700) {
+            slideshowTimer = setInterval(showNextPhoto, 4000);
+        }
+    }
+
+    startSlideshow();
+
+    window.addEventListener("resize", startSlideshow);
+});
