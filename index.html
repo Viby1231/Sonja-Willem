@@ -521,211 +521,81 @@
                     </div>
 
 
-                    <form
-                        id="rsvpForm"
-                        class="rsvp-form"
-                        action="https://script.google.com/macros/s/AKfycbwfLky_WHWkRAgSlK0ylaL66B35qKM5Xm3kBAQX1MLZqHCQyaY46mvdOC0phas7fx-Ucw/exec"
-                        method="POST"
-                        target="rsvpFrame"
-                    >
+<form
 
-                        <div class="form-row">
+  id="rsvpForm"
+  class="rsvp-form"
+  action="YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL"
+  method="POST"
+  target="rsvpFrame"
+>
 
-                            <div class="form-group">
+  <input type="hidden" name="requestId" id="requestId">
 
-                                <label for="name">
-                                    Naam *
-                                </label>
+  <div class="form-group">
+    <label for="name">Naam *</label>
+    <input type="text" id="name" name="name" required>
+  </div>
 
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    placeholder="Jou naam"
-                                    required
-                                >
+  <div class="form-group">
+    <label for="surname">Van *</label>
+    <input type="text" id="surname" name="surname" required>
+  </div>
 
-                            </div>
+  <div class="form-group">
+    <label for="email">E-posadres *</label>
+    <input type="email" id="email" name="email" required>
+  </div>
 
+  <div class="form-group">
+    <label for="attendance">Sal jy die troue bywoon? *</label>
+    <select id="attendance" name="attendance" required>
+      <option value="">Kies asseblief</option>
+      <option value="Ja, ek sal daar wees">Ja, ek sal daar wees</option>
+      <option value="Nee, ek kan ongelukkig nie kom nie">
+        Nee, ek kan ongelukkig nie kom nie
+      </option>
+    </select>
+  </div>
 
-                            <div class="form-group">
+  <div class="form-group">
+    <label for="guests">Aantal volwassenes</label>
+    <input type="number" id="guests" name="guests" min="0">
+  </div>
 
-                                <label for="surname">
-                                    Van *
-                                </label>
+  <div class="form-group">
+    <label for="guestNames">Name van ander gaste</label>
+    <textarea id="guestNames" name="guestNames"></textarea>
+  </div>
 
-                                <input
-                                    type="text"
-                                    id="surname"
-                                    name="surname"
-                                    placeholder="Jou van"
-                                    required
-                                >
+  <div class="form-group">
+    <label for="diet">Dieetvereistes</label>
+    <textarea id="diet" name="diet"></textarea>
+  </div>
 
-                            </div>
+  <div class="form-group">
+    <label for="drinks">Drankies</label>
+    <textarea id="drinks" name="drinks"></textarea>
+  </div>
 
-                        </div>
+  <div class="form-group">
+    <label for="message">Boodskap</label>
+    <textarea id="message" name="message"></textarea>
+  </div>
 
+  <button type="submit" id="submitBtn">
+    Stuur RSVP
+  </button>
 
-                        <div class="form-group">
+  <p id="formMessage" role="status" aria-live="polite"></p>
+</form>
 
-                            <label for="email">
-                                E-posadres *
-                            </label>
-
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                placeholder="jou@email.com"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Sal jy die troue bywoon? *
-                            </label>
-
-                            <div class="radio-group">
-
-                                <label class="radio-option">
-
-                                    <input
-                                        type="radio"
-                                        name="attendance"
-                                        value="Ja"
-                                        required
-                                    >
-
-                                    <span>Ja, met graagte!</span>
-
-                                </label>
-
-
-                                <label class="radio-option">
-
-                                    <input
-                                        type="radio"
-                                        name="attendance"
-                                        value="Nee"
-                                    >
-
-                                    <span>Nee, ongelukkig nie</span>
-
-                                </label>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="guests">
-                                Aantal volwassenes
-                            </label>
-
-                            <select
-                                id="guests"
-                                name="guests"
-                            >
-
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="guestNames">
-                                Name van ander gaste
-                            </label>
-
-                            <input
-                                type="text"
-                                id="guestNames"
-                                name="guestNames"
-                                placeholder="Indien van toepassing"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="diet">
-                                Dieetvereistes
-                            </label>
-
-                            <textarea
-                                id="diet"
-                                name="diet"
-                                rows="3"
-                                placeholder="Laat weet ons indien jy enige dieetvereistes het..."
-                            ></textarea>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="drinks">
-                                Watter drankies sal jy verkies?
-                            </label>
-
-                        <input
-                            type="text"
-                            id="drinks"
-                            name="drinks"
-                            placeholder="Byvoorbeeld: Coke, wyn, bier..."
-                >
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="message">
-                                Boodskap aan die bruidspaar
-                            </label>
-
-                            <textarea
-                                id="message"
-                                name="message"
-                                rows="4"
-                                placeholder="Laat 'n spesiale boodskap..."
-                            ></textarea>
-
-                        </div>
-
-
-                        <button
-                            type="submit"
-                            class="button button-primary button-full"
-                        >
-                            Stuur RSVP
-                        </button>
-
-
-                        <p
-                            id="formMessage"
-                            class="form-message"
-                            aria-live="polite"
-                        ></p>
-
-                    </form>
-
-                    <iframe
-                        name="rsvpFrame"
-                        id="rsvpFrame"
-                        style="display:none;"
-                    ></iframe>
+<iframe
+  name="rsvpFrame"
+  id="rsvpFrame"
+  title="RSVP submission"
+  style="display: none;"
+></iframe>
 
                 </div>
 

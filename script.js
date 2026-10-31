@@ -11,7 +11,6 @@ if (menuToggle && navLinks) {
         navLinks.classList.toggle("active");
     });
 
-
     document.querySelectorAll(".nav-links a").forEach(link => {
 
         link.addEventListener("click", () => {
@@ -31,119 +30,137 @@ const rsvpForm = document.getElementById("rsvpForm");
 const formMessage = document.getElementById("formMessage");
 const rsvpFrame = document.getElementById("rsvpFrame");
 
+if (rsvpForm && formMessage && rsvpFrame) {
 
-if (rsvpForm) {
+    const submitButton = rsvpForm.querySelector(
+        "button[type='submit']"
+    );
 
-    rsvpForm.addEventListener("submit", () => {
+    const requestIdInput = document.getElementById("requestId");
 
-        const submitButton =
-            rsvpForm.querySelector("button[type='submit']");
+    let currentRequestId = null;
+    let requestTimeout = null;
 
 
-        /* -----------------------------------------
-           SHOW SENDING
-        ----------------------------------------- */
+    /* =====================================
+       SUBMIT RSVP
+    ===================================== */
+
+    rsvpForm.addEventListener("submit", (event) => {
+
+        if (!rsvpForm.reportValidity()) {
+            event.preventDefault();
+            return;
+        }
+
+        // Prevent duplicate submissions
+        if (currentRequestId !== null) {
+            event.preventDefault();
+            return;
+        }
+
+        // Generate a unique request ID
+        currentRequestId =
+            Date.now().toString() + "-" +
+            Math.random().toString(36).substring(2);
+
+        requestIdInput.value = currentRequestId;
 
         if (submitButton) {
-
             submitButton.disabled = true;
             submitButton.textContent = "Stuur...";
-
         }
 
+        formMessage.textContent =
+            "Jou RSVP word gestuur. Wag asseblief...";
 
-        if (formMessage) {
+        formMessage.style.color = "#b85c38";
 
-            formMessage.textContent =
-                "Jou RSVP word gestuur...";
-
-            formMessage.style.color =
-                "#b85c38";
-
-        }
+        const submittedRequestId = currentRequestId;
 
 
-        /*
-            IMPORTANT:
+        // Wait up to 30 seconds for Google's response
+        requestTimeout = setTimeout(() => {
 
-            We DO NOT use event.preventDefault().
-
-            The browser submits the form directly
-            to Google Apps Script.
-        */
-
-
-        /* -----------------------------------------
-           WAIT FOR GOOGLE APPS SCRIPT
-        ----------------------------------------- */
-
-        setTimeout(() => {
-
-            if (formMessage) {
+            if (currentRequestId === submittedRequestId) {
 
                 formMessage.textContent =
-                    "Dankie! Jou RSVP is ontvang. ❤️";
+                    "Ons kon nie die bevestiging ontvang nie. " +
+                    "Kontroleer asseblief jou e-pos voordat jy weer indien.";
 
-                formMessage.style.color =
-                    "#b85c38";
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Probeer weer";
+                }
 
+                currentRequestId = null;
             }
 
+        }, 30000);
+
+        /*
+          IMPORTANT:
+          Do not use preventDefault() here.
+
+          The browser must submit the form normally
+          to the hidden Google Apps Script iframe.
+        */
+
+    });
+
+
+    /* =====================================
+       RECEIVE GOOGLE RESPONSE
+    ===================================== */
+
+    window.addEventListener("message", (event) => {
+
+        // Only accept messages from our hidden iframe
+        if (event.source !== rsvpFrame.contentWindow) {
+            return;
+        }
+
+        const result = event.data;
+
+        if (!result || result.type !== "RSVP_RESULT") {
+            return;
+        }
+
+        // Make sure this is the correct submission
+        if (result.requestId !== currentRequestId) {
+            return;
+        }
+
+        clearTimeout(requestTimeout);
+
+
+        if (result.success === true) {
+
+            formMessage.textContent =
+                "Baie dankie! Jou RSVP is suksesvol ontvang. ❤️";
+
+            formMessage.style.color = "#b85c38";
 
             rsvpForm.reset();
 
+        } else {
 
-            if (submitButton) {
+            formMessage.textContent =
+                "Jou RSVP kon nie gestuur word nie: " +
+                (result.error || "Probeer asseblief weer.");
 
-                submitButton.disabled = false;
+            formMessage.style.color = "#b85c38";
 
-                submitButton.textContent =
-                    "Stuur RSVP";
+        }
 
-            }
 
-        }, 2000);
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = "Stuur RSVP";
+        }
+
+        currentRequestId = null;
 
     });
 
 }
-
-
-/* =========================================
-   MOBILE HERO SLIDESHOW
-========================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-    const gallery = document.querySelector(".hero-gallery");
-
-    if (!gallery) return;
-
-    const photos = Array.from(
-        gallery.querySelectorAll(".hero-photo")
-    );
-
-    if (photos.length < 2) return;
-
-    let currentIndex = 0;
-    let slideshowTimer;
-
-    function showNextPhoto() {
-        photos[currentIndex].classList.remove("active");
-
-        currentIndex = (currentIndex + 1) % photos.length;
-
-        photos[currentIndex].classList.add("active");
-    }
-
-    function startSlideshow() {
-        clearInterval(slideshowTimer);
-
-        if (window.innerWidth <= 700) {
-            slideshowTimer = setInterval(showNextPhoto, 4000);
-        }
-    }
-
-    startSlideshow();
-
-    window.addEventListener("resize", startSlideshow);
-});
