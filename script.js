@@ -1,3 +1,4 @@
+
 /* =========================================
    MOBILE MENU
 ========================================= */
@@ -6,161 +7,85 @@ const menuToggle = document.querySelector(".menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 
 if (menuToggle && navLinks) {
-
     menuToggle.addEventListener("click", () => {
         navLinks.classList.toggle("active");
     });
 
     document.querySelectorAll(".nav-links a").forEach(link => {
-
         link.addEventListener("click", () => {
             navLinks.classList.remove("active");
         });
-
     });
-
 }
 
 
 /* =========================================
-   RSVP FORM
+   RSVP FORM - CLOUDFLARE API
 ========================================= */
 
 const rsvpForm = document.getElementById("rsvpForm");
 const formMessage = document.getElementById("formMessage");
-const rsvpFrame = document.getElementById("rsvpFrame");
 
-if (rsvpForm && formMessage && rsvpFrame) {
+const RSVP_API =
+    "https://wedding-rsvp-api.hendricowybenga.workers.dev";
 
-    const submitButton = rsvpForm.querySelector(
-        "button[type='submit']"
-    );
+if (rsvpForm) {
+    rsvpForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-    const requestIdInput = document.getElementById("requestId");
-
-    let currentRequestId = null;
-    let requestTimeout = null;
-
-
-    /* =====================================
-       SUBMIT RSVP
-    ===================================== */
-
-    rsvpForm.addEventListener("submit", (event) => {
-
-        if (!rsvpForm.reportValidity()) {
-            event.preventDefault();
-            return;
-        }
-
-        // Prevent duplicate submissions
-        if (currentRequestId !== null) {
-            event.preventDefault();
-            return;
-        }
-
-        // Generate a unique request ID
-        currentRequestId =
-            Date.now().toString() + "-" +
-            Math.random().toString(36).substring(2);
-
-        requestIdInput.value = currentRequestId;
+        const submitButton =
+            rsvpForm.querySelector("button[type='submit']");
 
         if (submitButton) {
             submitButton.disabled = true;
             submitButton.textContent = "Stuur...";
         }
 
-        formMessage.textContent =
-            "Jou RSVP word gestuur. Wag asseblief...";
+        if (formMessage) {
+            formMessage.textContent = "Jou RSVP word gestuur...";
+            formMessage.style.color = "#b85c38";
+        }
 
-        formMessage.style.color = "#b85c38";
+        try {
+            const formData = new FormData(rsvpForm);
+            const data = Object.fromEntries(formData.entries());
 
-        const submittedRequestId = currentRequestId;
+            const result = await fetch(RSVP_API, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
 
+            const response = await result.json();
 
-        // Wait up to 30 seconds for Google's response
-        requestTimeout = setTimeout(() => {
-
-            if (currentRequestId === submittedRequestId) {
-
-                formMessage.textContent =
-                    "Ons kon nie die bevestiging ontvang nie. " +
-                    "Kontroleer asseblief jou e-pos voordat jy weer indien.";
-
-                if (submitButton) {
-                    submitButton.disabled = false;
-                    submitButton.textContent = "Probeer weer";
-                }
-
-                currentRequestId = null;
+            if (!result.ok || !response.success) {
+                throw new Error(response.error || "Submission failed");
             }
 
-        }, 30000);
-
-        /*
-          IMPORTANT:
-          Do not use preventDefault() here.
-
-          The browser must submit the form normally
-          to the hidden Google Apps Script iframe.
-        */
-
-    });
-
-
-    /* =====================================
-       RECEIVE GOOGLE RESPONSE
-    ===================================== */
-
-    window.addEventListener("message", (event) => {
-
-        // Only accept messages from our hidden iframe
-        if (event.source !== rsvpFrame.contentWindow) {
-            return;
-        }
-
-        const result = event.data;
-
-        if (!result || result.type !== "RSVP_RESULT") {
-            return;
-        }
-
-        // Make sure this is the correct submission
-        if (result.requestId !== currentRequestId) {
-            return;
-        }
-
-        clearTimeout(requestTimeout);
-
-
-        if (result.success === true) {
-
-            formMessage.textContent =
-                "Baie dankie! Jou RSVP is suksesvol ontvang. ❤️";
-
-            formMessage.style.color = "#b85c38";
+            if (formMessage) {
+                formMessage.textContent =
+                    "Dankie! Jou RSVP is ontvang. ❤️";
+                formMessage.style.color = "#b85c38";
+            }
 
             rsvpForm.reset();
 
-        } else {
+        } catch (error) {
+            console.error("RSVP error:", error);
 
-            formMessage.textContent =
-                "Jou RSVP kon nie gestuur word nie: " +
-                (result.error || "Probeer asseblief weer.");
+            if (formMessage) {
+                formMessage.textContent =
+                    "Jammer! Jou RSVP kon nie gestuur word nie. Probeer asseblief weer.";
+                formMessage.style.color = "#b85c38";
+            }
 
-            formMessage.style.color = "#b85c38";
-
+        } finally {
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = "Stuur RSVP";
+            }
         }
-
-
-        if (submitButton) {
-            submitButton.disabled = false;
-            submitButton.textContent = "Stuur RSVP";
-        }
-
-        currentRequestId = null;
-
     });
-
 }
