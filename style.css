@@ -1,31 +1,23 @@
+
 /* =========================================
    VARIABLES
 ========================================= */
 
 :root {
+    --cream: #fff8ef;
+    --light-cream: #fffaf4;
+    --pink: #e8b7b7;
+    --light-pink: #f7e4df;
     --burnt-orange: #b85c38;
-    --burnt-orange-dark: #914326;
-    --cream: #fbf7f1;
-    --cream-dark: #f1e7da;
-    --pink: #d99a9a;
-    --pink-light: #f4dddd;
-    --brown: #4a332c;
-    --text: #51443e;
+    --dark-orange: #8f432b;
+    --brown: #594237;
+    --dark-brown: #3d3029;
     --white: #ffffff;
-
-    --serif: "Cormorant Garamond", Georgia, serif;
-    --sans: "Montserrat", Arial, sans-serif;
-
-    --container: 1150px;
-    --radius: 4px;
-
-    --shadow:
-        0 15px 40px rgba(70, 40, 25, 0.08);
+    --shadow: 0 5px 20px rgba(70, 45, 30, 0.10);
 }
 
-
 /* =========================================
-   RESET
+   RESET AND GLOBAL STYLES
 ========================================= */
 
 * {
@@ -36,13 +28,15 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
 }
 
 body {
+    font-family: Georgia, "Times New Roman", serif;
     background: var(--cream);
-    color: var(--text);
-    font-family: var(--sans);
+    color: var(--brown);
     line-height: 1.7;
+    overflow-x: hidden;
 }
 
 img {
@@ -50,136 +44,76 @@ img {
     display: block;
 }
 
-button,
-input,
-textarea,
-select {
-    font: inherit;
-}
-
 a {
     color: inherit;
     text-decoration: none;
 }
 
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
 
-/* =========================================
-   GLOBAL
-========================================= */
+button {
+    cursor: pointer;
+}
+
+section {
+    position: relative;
+}
 
 .container {
-    width: min(
-        calc(100% - 40px),
-        var(--container)
-    );
-
-    margin-inline: auto;
-}
-
-.narrow {
-    max-width: 750px;
-}
-
-.section {
-    padding: 110px 0;
-}
-
-.section-heading {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 65px;
-}
-
-.section-label {
-    color: var(--burnt-orange);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-}
-
-h1,
-h2,
-h3 {
-    font-family: var(--serif);
-    font-weight: 500;
-    line-height: 1.1;
-}
-
-h2 {
-    color: var(--brown);
-    font-size: clamp(2.5rem, 5vw, 4rem);
-}
-
-.ornament {
-    color: var(--pink);
-    font-size: 2rem;
-    margin: 15px 0;
-}
-
-.section-description {
-    max-width: 600px;
+    width: 90%;
+    max-width: 1150px;
     margin: 0 auto;
 }
 
+.section-title {
+    color: var(--burnt-orange);
+    font-size: clamp(2rem, 4vw, 3rem);
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: normal;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--brown);
+    max-width: 650px;
+    margin: 0 auto 40px;
+}
 
 /* =========================================
    BUTTONS
 ========================================= */
 
-.button {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-
-    min-height: 52px;
-    padding: 0 30px;
-
-    border: 1px solid transparent;
-    border-radius: 2px;
-
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease,
-        color 0.25s ease;
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border: 1px solid var(--burnt-orange);
+    background: var(--burnt-orange);
+    color: var(--white);
+    border-radius: 30px;
+    transition: 0.3s ease;
+    text-align: center;
 }
 
-.button:hover {
+.btn:hover {
+    background: var(--dark-orange);
+    border-color: var(--dark-orange);
     transform: translateY(-2px);
 }
 
-.button-primary {
-    color: var(--white);
-    background: var(--burnt-orange);
-}
-
-.button-primary:hover {
-    background: var(--burnt-orange-dark);
-}
-
-.button-outline {
-    color: var(--burnt-orange);
-    border-color: var(--burnt-orange);
+.btn-outline {
     background: transparent;
+    color: var(--burnt-orange);
 }
 
-.button-outline:hover {
+.btn-outline:hover {
     color: var(--white);
-    background: var(--burnt-orange);
 }
-
-.button-full {
-    width: 100%;
-}
-
 
 /* =========================================
    NAVIGATION
@@ -189,130 +123,80 @@ h2 {
     position: fixed;
     top: 0;
     left: 0;
-
     width: 100%;
-
     z-index: 1000;
-
-    background: rgba(251, 247, 241, 0.94);
-
-    backdrop-filter: blur(12px);
-
-    border-bottom: 1px solid rgba(74, 51, 44, 0.08);
+    background: rgba(255, 248, 239, 0.96);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(10px);
 }
 
 .nav-container {
-    width: min(
-        calc(100% - 40px),
-        var(--container)
-    );
-
-    min-height: 75px;
-
+    max-width: 1200px;
+    width: 90%;
     margin: auto;
-
+    min-height: 75px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .logo {
-    color: var(--brown);
-
-    font-family: var(--serif);
-    font-size: 1.7rem;
-}
-
-.logo span {
     color: var(--burnt-orange);
+    font-size: 1.5rem;
     font-style: italic;
 }
 
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 30px;
-
-    font-size: 0.7rem;
-    font-weight: 500;
-
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    gap: 28px;
+    list-style: none;
 }
 
 .nav-links a {
-    transition: color 0.2s ease;
+    color: var(--brown);
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
     color: var(--burnt-orange);
 }
 
-.nav-rsvp {
-    color: var(--white) !important;
-    background: var(--burnt-orange);
-
-    padding: 10px 18px;
-}
-
 .menu-toggle {
     display: none;
-
-    width: 42px;
-    height: 42px;
-
+    background: none;
     border: none;
-    background: transparent;
-
-    cursor: pointer;
+    color: var(--burnt-orange);
+    font-size: 1.8rem;
 }
 
-.menu-toggle span {
-    display: block;
-
-    width: 24px;
-    height: 2px;
-
-    margin: 5px auto;
-
-    background: var(--brown);
-
-    transition: 0.3s;
-}
-
-
 /* =========================================
-   HERO
-========================================= */
-
-
-/* =========================================
-   HERO
+   HERO SECTION
 ========================================= */
 
 .hero {
     min-height: 100vh;
     position: relative;
-    display: grid;
-    place-items: center;
-    text-align: center;
-    color: var(--white);
     isolation: isolate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     overflow: hidden;
-    background: #4a332c;
+    padding: 100px 20px 60px;
+    background: var(--brown);
+    color: var(--white);
 }
-
-/* Photo collage / mobile slideshow */
 
 .hero-gallery {
     position: absolute;
     inset: 0;
     z-index: -2;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 1.2fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     gap: 4px;
-    overflow: hidden;
 }
 
 .hero-photo {
@@ -323,122 +207,388 @@ h2 {
     background-repeat: no-repeat;
 }
 
-/* Desktop collage */
+/* Desktop photo collage */
 
-@media (min-width: 701px) {
-    .hero-photo {
-        display: block;
-    }
-
-    .hero-photo:nth-child(1) {
-        grid-column: 1;
-        grid-row: 1 / 3;
-    }
-
-    .hero-photo:nth-child(2) {
-        grid-column: 2;
-        grid-row: 1;
-    }
-
-    .hero-photo:nth-child(3) {
-        grid-column: 3;
-        grid-row: 1;
-    }
-
-    .hero-photo:nth-child(4) {
-        grid-column: 2;
-        grid-row: 2;
-    }
-
-    .hero-photo:nth-child(5) {
-        grid-column: 3;
-        grid-row: 2;
-    }
+.hero-photo:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1 / 3;
 }
 
-/* Dark overlay to keep the text readable */
+.hero-photo:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.hero-photo:nth-child(3) {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.hero-photo:nth-child(4) {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.hero-photo:nth-child(5) {
+    grid-column: 3;
+    grid-row: 2;
+}
 
 .hero-overlay {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background:
-        linear-gradient(
-            rgba(60, 35, 25, 0.40),
-            rgba(60, 35, 25, 0.55)
-        ),
-        radial-gradient(
-            circle at center,
-            transparent 10%,
-            rgba(40, 20, 10, 0.25)
-        );
-    pointer-events: none;
+    background: rgba(35, 24, 19, 0.48);
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
-    width: min(calc(100% - 40px), 900px);
+    max-width: 850px;
 }
 
-.eyebrow {
-    font-size: 0.90rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
+.hero-content h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: normal;
+    line-height: 1.15;
+    margin-bottom: 15px;
 }
 
-.hero h1 {
-    font-size: clamp(4rem, 11vw, 9rem);
-    font-weight: 400;
-    text-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+.hero-content .subtitle {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    letter-spacing: 2px;
+    margin-bottom: 25px;
 }
 
-.hero h1 span {
-    color: var(--pink);
+.hero-content p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+.hero-content .btn {
+    background: var(--cream);
+    color: var(--burnt-orange);
+    border-color: var(--cream);
+}
+
+.hero-content .btn:hover {
+    background: var(--pink);
+    border-color: var(--pink);
+}
+
+/* =========================================
+   INTRODUCTION
+========================================= */
+
+.intro {
+    padding: 100px 20px;
+    text-align: center;
+    background: var(--cream);
+}
+
+.intro-content {
+    max-width: 800px;
+    margin: auto;
+}
+
+.intro h2 {
+    color: var(--burnt-orange);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: normal;
+    margin-bottom: 25px;
+}
+
+.intro p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+/* =========================================
+   WEDDING DETAILS
+========================================= */
+
+.wedding {
+    padding: 90px 20px;
+    background: var(--light-pink);
+    text-align: center;
+}
+
+.wedding-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 1000px;
+    margin: 45px auto 0;
+}
+
+.detail-card {
+    background: var(--cream);
+    padding: 35px 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.detail-card h3 {
+    color: var(--burnt-orange);
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin-bottom: 12px;
+}
+
+.detail-card p {
+    margin-bottom: 8px;
+}
+
+/* =========================================
+   INFORMATION
+========================================= */
+
+.information {
+    padding: 90px 20px;
+    background: var(--cream);
+}
+
+.info-content {
+    max-width: 850px;
+    margin: auto;
+    text-align: center;
+}
+
+.info-item {
+    padding: 25px;
+    margin: 20px 0;
+    background: var(--light-pink);
+    border-radius: 10px;
+}
+
+.info-item h3 {
+    color: var(--burnt-orange);
+    font-weight: normal;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+/* =========================================
+   ACCOMMODATION
+========================================= */
+
+.accommodation {
+    padding: 90px 20px;
+    background: var(--light-pink);
+}
+
+.accommodation-content {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.guesthouse-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.guesthouse {
+    display: block;
+    background: var(--cream);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.guesthouse:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 9px 25px rgba(70, 45, 30, 0.16);
+}
+
+.guesthouse h3 {
+    color: var(--burnt-orange);
+    font-size: 1.3rem;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.guesthouse p {
+    color: var(--burnt-orange);
+}
+
+/* =========================================
+   BIBLE VERSE
+========================================= */
+
+.bible-verse {
+    padding: 75px 20px;
+    background: var(--cream);
+    text-align: center;
+}
+
+.bible-verse blockquote {
+    max-width: 750px;
+    margin: auto;
+    color: var(--brown);
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
     font-style: italic;
 }
 
-.hero-divider {
-    width: 80px;
-    height: 1px;
-    background: var(--white);
-    margin: 30px auto;
+.bible-verse p {
+    margin-top: 20px;
+    color: var(--burnt-orange);
 }
 
-.hero-date {
-    font-size: 1rem;
-    letter-spacing: 0.3em;
-    margin-bottom: 35px;
+/* =========================================
+   RSVP SECTION
+========================================= */
+
+.rsvp {
+    padding: 90px 20px;
+    background: var(--light-pink);
 }
 
-.scroll-indicator {
-    position: absolute;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    text-align: center;
-    opacity: 0.8;
+.rsvp-container {
+    max-width: 750px;
+    margin: auto;
 }
 
-.scroll-indicator span {
+.rsvp-form {
+    background: var(--cream);
+    padding: 40px;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
     display: block;
-    width: 1px;
-    height: 35px;
-    margin: 0 auto 5px;
-    background: white;
+    color: var(--brown);
+    margin-bottom: 8px;
 }
 
-.scroll-indicator p {
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #dfc9b9;
+    border-radius: 7px;
+    background: var(--white);
+    color: var(--brown);
+    outline: none;
 }
 
-/* Mobile slideshow */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--burnt-orange);
+    box-shadow: 0 0 0 2px rgba(184, 92, 56, 0.12);
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.rsvp-form button {
+    width: 100%;
+    border: none;
+    font-size: 1rem;
+}
+
+.rsvp-form button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+#formMessage {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    padding: 35px 20px;
+    background: var(--dark-brown);
+    color: var(--cream);
+    text-align: center;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: var(--pink);
+}
+
+/* =========================================
+   TABLET RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+    .wedding-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .guesthouse-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nav-links {
+        gap: 16px;
+    }
+}
+
+/* =========================================
+   MOBILE NAVIGATION
+========================================= */
 
 @media (max-width: 700px) {
+    .nav-container {
+        min-height: 65px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        padding: 15px 0;
+        background: var(--cream);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 12px;
+    }
+
+    /* Mobile hero slideshow */
+
     .hero-gallery {
         display: block;
     }
@@ -456,726 +606,56 @@ h2 {
 
     .hero-overlay {
         z-index: 1;
+        background: rgba(35, 24, 19, 0.48);
     }
 
-    .hero-content,
-    .scroll-indicator {
+    .hero-content {
         z-index: 2;
     }
-}
 
-@media (prefers-reduced-motion: reduce) {
-    .hero-photo {
-        transition: none;
-    }
-}
-
-
-
-/* =========================================
-   INTRO
-========================================= */
-
-.intro {
-    position: relative;
-
-    text-align: center;
-
-    overflow: hidden;
-}
-
-.intro-text {
-    font-family: var(--serif);
-
-    font-size: clamp(
-        1.35rem,
-        2.5vw,
-        1.7rem
-    );
-
-    line-height: 1.7;
-}
-
-.flower-decoration {
-    position: absolute;
-
-    color: var(--pink);
-
-    font-size: 8rem;
-
-    opacity: 0.18;
-}
-
-.flower-left {
-    left: -40px;
-    top: 40%;
-}
-
-.flower-right {
-    right: -40px;
-    bottom: 20%;
-}
-
-
-/* =========================================
-   WEDDING
-========================================= */
-
-.wedding {
-    background: var(--cream-dark);
-}
-
-.details-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 25px;
-}
-
-.detail-card {
-    padding: 45px 25px;
-
-    text-align: center;
-
-    background: var(--cream);
-
-    box-shadow: var(--shadow);
-}
-
-.detail-icon {
-    color: var(--burnt-orange);
-
-    font-family: var(--serif);
-    font-size: 2.5rem;
-
-    margin-bottom: 15px;
-}
-
-.detail-label {
-    color: var(--burnt-orange);
-
-    font-size: 0.65rem;
-    font-weight: 600;
-
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-}
-
-.detail-card h3 {
-    margin-top: 10px;
-
-    font-size: 1.6rem;
-}
-
-.venue-message {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 40px;
-
-    margin-top: 30px;
-    padding: 45px;
-
-    background: var(--brown);
-    color: var(--white);
-}
-
-.venue-message h3 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-
-.venue-message .section-label {
-    color: var(--pink);
-}
-
-
-/* =========================================
-   INFORMATION
-========================================= */
-
-.info-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 25px;
-}
-
-.info-card {
-    position: relative;
-
-    padding: 45px;
-
-    border: 1px solid rgba(74, 51, 44, 0.12);
-
-    background: var(--white);
-}
-
-.info-number {
-    color: var(--pink);
-
-    font-size: 0.7rem;
-    font-weight: 600;
-
-    letter-spacing: 0.15em;
-
-    margin-bottom: 15px;
-}
-
-.info-card h3 {
-    color: var(--brown);
-
-    font-size: 2rem;
-
-    margin-bottom: 10px;
-}
-
-
-/* =========================================
-   ACCOMMODATION
-========================================= */
-
-.accommodation {
-    background: var(--cream-dark);
-}
-
-.guesthouse-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 15px;
-}
-
-.guesthouse {
-    padding: 28px;
-
-    background: var(--cream);
-
-    border-left: 3px solid var(--pink);
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.guesthouse:hover {
-    transform: translateY(-4px);
-
-    box-shadow: var(--shadow);
-}
-
-.guesthouse h3 {
-    font-size: 1.45rem;
-}
-
-.guesthouse p {
-    margin-top: 8px;
-
-    font-size: 0.85rem;
-}
-
-
-/* =========================================
-   RSVP
-========================================= */
-
-.rsvp {
-    background:
-        linear-gradient(
-            rgba(74, 51, 44, 0.95),
-            rgba(74, 51, 44, 0.95)
-        );
-}
-
-.rsvp-wrapper {
-    max-width: 850px;
-
-    margin: auto;
-
-    padding: 70px;
-
-    background: var(--cream);
-
-    box-shadow:
-        0 25px 70px rgba(0, 0, 0, 0.2);
-}
-
-.rsvp-header {
-    text-align: center;
-
-    margin-bottom: 45px;
-}
-
-.rsvp-header h2 {
-    color: var(--brown);
-}
-
-.rsvp-form {
-    display: flex;
-    flex-direction: column;
-
-    gap: 22px;
-}
-
-.form-row {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 20px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-
-    gap: 8px;
-}
-
-.form-group label {
-    font-size: 0.7rem;
-
-    font-weight: 600;
-
-    letter-spacing: 0.1em;
-
-    text-transform: uppercase;
-}
-
-input,
-textarea,
-select {
-    width: 100%;
-
-    padding: 15px;
-
-    border: 1px solid rgba(74, 51, 44, 0.18);
-
-    border-radius: 0;
-
-    background: var(--white);
-
-    color: var(--text);
-
-    outline: none;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-textarea {
-    resize: vertical;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-    border-color: var(--burnt-orange);
-
-    box-shadow:
-        0 0 0 3px
-        rgba(184, 92, 56, 0.08);
-}
-
-.radio-group {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 10px;
-}
-
-.radio-option {
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    padding: 15px;
-
-    border: 1px solid
-        rgba(74, 51, 44, 0.15);
-
-    cursor: pointer;
-}
-
-.radio-option input {
-    width: auto;
-}
-
-.form-message {
-    text-align: center;
-
-    min-height: 25px;
-
-    font-size: 0.9rem;
-}
-
-
-/* =========================================
-   FOOTER
-========================================= */
-
-.footer {
-    padding: 70px 0;
-
-    text-align: center;
-
-    background: var(--brown);
-
-    color: var(--white);
-}
-
-.footer h2 {
-    color: var(--white);
-
-    font-size: 3rem;
-}
-
-.footer p {
-    max-width: 500px;
-
-    margin: 15px auto;
-}
-
-.footer-ornament {
-    color: var(--pink);
-
-    font-size: 2rem;
-
-    margin: 20px 0;
-}
-
-.footer small {
-    opacity: 0.65;
-}
-
-
-/* =========================================
-   TABLET
-========================================= */
-
-@media (max-width: 900px) {
-
-    .section {
-        padding: 85px 0;
+    .hero {
+        min-height: 85vh;
     }
 
-    .details-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
+    .wedding-details {
+        grid-template-columns: 1fr;
     }
 
-    .detail-card:last-child {
-        grid-column:
-            1 / -1;
-    }
-
-    .guesthouse-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
-
-    .rsvp-wrapper {
-        padding: 50px;
-    }
-
-}
-
-
-/* =========================================
-   MOBILE NAVIGATION
-========================================= */
-
-@media (max-width: 700px) {
-
-    .menu-toggle {
-        display: block;
-    }
-
-    .nav-links {
-        position: absolute;
-
-        top: 75px;
-        left: 0;
-
-        width: 100%;
-
-        padding: 20px;
-
-        display: none;
-        flex-direction: column;
-
-        background: var(--cream);
-
-        border-bottom:
-            1px solid rgba(74, 51, 44, 0.1);
-
-        gap: 0;
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links a {
-        width: 100%;
-
-        padding: 15px;
-
-        text-align: center;
-    }
-
-    .nav-rsvp {
-        margin-top: 5px;
-    }
-
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 600px) {
-
-    .container {
-        width:
-            min(
-                calc(100% - 30px),
-                var(--container)
-            );
-    }
-
-    .section {
-        padding: 70px 0;
-    }
-
-    .hero h1 {
-        font-size:
-            clamp(
-                3.5rem,
-                18vw,
-                5.5rem
-            );
-    }
-
-    .hero-date {
-        font-size: 0.7rem;
-    }
-
-    .details-grid,
-    .info-grid,
     .guesthouse-grid {
         grid-template-columns: 1fr;
     }
 
-    .detail-card:last-child {
-        grid-column: auto;
+    .rsvp-form {
+        padding: 25px 20px;
     }
 
-    .venue-message {
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        padding: 35px 25px;
+    .intro,
+    .wedding,
+    .information,
+    .accommodation,
+    .rsvp {
+        padding: 65px 20px;
     }
-
-    .info-card {
-        padding: 35px 25px;
-    }
-
-    .rsvp-wrapper {
-        padding: 40px 22px;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-
-    .radio-group {
-        grid-template-columns: 1fr;
-    }
-
-    .flower-decoration {
-        display: none;
-    }
-
-    .footer h2 {
-        font-size: 2.5rem;
-    }
-
 }
-
 
 /* =========================================
-   SMALL PHONES
+   SMALL PHONE RESPONSIVE
 ========================================= */
 
-@media (max-width: 380px) {
-
-    .logo {
-        font-size: 1.4rem;
+@media (max-width: 400px) {
+    .hero-content h1 {
+        font-size: 2.7rem;
     }
 
-    .hero h1 {
-        font-size: 3.2rem;
+    .hero-content p {
+        font-size: 1rem;
     }
 
-    .button {
-        width: 100%;
+    .section-title {
+        font-size: 2rem;
     }
 
-}
-
-.guesthouse {
-    display: block;
-    color: inherit;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.guesthouse p {
-    color: var(--burnt-orange);
-}
-
-
-/* =========================================
-   BIBLE VERSE
-========================================= */
-
-.bible-verse {
-    padding: 75px 10px;
-    background: var(--cream);
-    text-align: center;
-}
-
-.bible-frame {
-    position: relative;
-    max-width: 850px;
-    margin: 0 auto;
-    padding: 65px 55px;
-    border: 1px solid var(--burnt-orange);
-    outline: 1px solid rgba(184, 92, 56, 0.4);
-    outline-offset: 7px;
-    background:
-        radial-gradient(
-            circle at top left,
-            rgba(217, 154, 154, 0.12),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at bottom right,
-            rgba(217, 154, 154, 0.12),
-            transparent 35%
-        ),
-        #fffdf9;
-}
-
-.bible-label {
-    color: var(--burnt-orange);
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    margin-bottom: 18px;
-}
-
-.bible-ornament {
-    color: var(--pink);
-    font-family: var(--serif);
-    font-size: 2.5rem;
-    line-height: 1;
-    margin-bottom: 20px;
-}
-
-.bible-frame blockquote {
-    max-width: 650px;
-    margin: 0 auto;
-    color: var(--brown);
-    font-family: var(--serif);
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-style: italic;
-    line-height: 1.45;
-}
-
-.bible-reference {
-    margin-top: 25px;
-    color: var(--burnt-orange);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-}
-
-.bible-divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 25px;
-    color: var(--pink);
-}
-
-.bible-divider::before,
-.bible-divider::after {
-    content: "";
-    width: 55px;
-    height: 1px;
-    background: var(--pink);
-}
-
-.bible-flower {
-    position: absolute;
-    color: var(--pink);
-    font-size: 2.2rem;
-    opacity: 0.8;
-}
-
-.bible-flower-top {
-    top: 12px;
-    left: 18px;
-}
-
-.bible-flower-bottom {
-    right: 18px;
-    bottom: 12px;
-    transform: rotate(25deg);
-}
-
-/* Mobile */
-
-@media (max-width: 600px) {
-    .bible-verse {
-        padding: 55px 20px;
-    }
-
-    .bible-frame {
-        padding: 55px 22px;
-    }
-
-    .bible-frame blockquote {
-        font-size: 1.8rem;
-    }
-
-    .bible-label {
-        font-size: 0.62rem;
-        letter-spacing: 0.15em;
-    }
-
-    .bible-flower {
-        font-size: 1.7rem;
+    .rsvp-form {
+        padding: 20px 15px;
     }
 }
