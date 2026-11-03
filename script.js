@@ -80,3 +80,25 @@ if (rsvpForm && rsvpFrame) {
     });
 
 }
+
+/* =========================================
+   HERO PHOTO SLIDESHOW
+========================================= */
+
+const heroPhotos = document.querySelectorAll(".hero-photo");
+
+if (heroPhotos.length > 1) {
+
+    let currentPhoto = 0;
+
+    setInterval(() => {
+
+        heroPhotos[currentPhoto].classList.remove("active");
+
+        currentPhoto = (currentPhoto + 1) % heroPhotos.length;
+
+        heroPhotos[currentPhoto].classList.add("active");
+
+    }, 5000);
+
+}
